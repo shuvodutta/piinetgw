@@ -1,0 +1,28 @@
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+#iface default inet dhcp
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# The primary network interface
+auto eth0
+iface eth0 inet static
+	address 192.168.1.1
+	netmask 255.255.255.0
+	gateway 192.168.1.1
+	network 192.168.1.0
+	broadcast 192.168.1.255
+#	dns-nameservers 192.168.1.1
+
+# wifi interface; tp-link(rtl8188)
+allow-hotplug wlan0
+iface wlan0 inet static
+	address 192.168.127.1
+	netmask 255.255.255.0
+	gateway 192.168.127.1
+	network 192.168.127.0
+	broadcast 192.168.127.255
+#	dns-nameservers 192.168.127.1

@@ -1,0 +1,79 @@
+#/etc/ppp/options
+
+# serial device or modem device
+/dev/ttyUSB0
+
+# baud rate
+460800
+
+# don't log the password while establishing ppp connection
+hide-password
+
+# authentication is not required for peer
+noauth
+
+# username for authentication with isp; password entry will be in ./pap-secrets
+#name internet@internet.mtsindia.in
+name net
+
+# disables the default behaviour when no local ip address is specified
+noipdefault
+
+# makes ppp connetion the default route for internet; changes in kernel ip table
+defaultroute
+replacedefaultroute
+
+# <local ip>:<remote ip>
+0.0.0.0:10.64.64.64
+
+# request & use dns information from peer; /etc/resolv.conf will be updated accordingly by pppd
+usepeerdns
+
+# ipcp restart interval in s; default is 3
+ipcp-restart 3
+
+# accept local ip
+#ipcp-accept-local
+
+# accept remote ip
+#ipcp-accept-remote
+
+# dial ppp connection using 'chat'
+#connect "/usr/sbin/chat -V -f /etc/ppp/huaweie303f-airtel-connect.chat"
+#connect "/usr/sbin/chat -V -f /etc/ppp/zteac2792-mts-connect.chat"
+connect "/usr/sbin/chat -V -f /etc/ppp/zteac2791-rel-connect.chat"
+
+# disconnect ppp connection using 'chat'
+#disconnect "/usr/sbin/chat -V -f /etc/ppp/huaweie303f-airtel-disconnect.chat"
+#disconnect "usr/sbin/chat -V -f /etc/ppp/zteac2792-mts-disconnect.chat"
+disconnect "usr/sbin/chat -V -f /etc/ppp/zteac2791-rel-disconnect.chat"
+
+# compression related; all are disabled
+deflate 0
+bsdcomp 0
+noccp
+novj
+novjccomp
+
+# use modem hardware flow control
+crtscts
+
+# use modem control lines; default
+modem
+
+# create modem lock file for exclusive device access
+#lock
+nolock
+
+# wait 'n milis' after the connection script finishes
+connect-delay 3000
+
+# pppd will try to connect once again after disconnection if 'persist' is specified
+persist
+#nopersist
+
+# pppd will wait 'n' seconds before retrying the connection in 'persist' mode
+holdoff 5
+
+# pppd will exit after 'n' retry if connection establishment is unsuccessful in 'persist' mode
+maxfail 10

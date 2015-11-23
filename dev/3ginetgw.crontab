@@ -1,0 +1,1 @@
+*/3 * * * *	root	/sbin/3ginetgw.sh chkconn >> /etc/3ginetgw/3ginetgw.log
