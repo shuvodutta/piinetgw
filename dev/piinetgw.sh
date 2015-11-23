@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# File: /etc/mobinetgw/mobinetgw.sh, /sbin/mobinetgw.sh (primary location)
+# File: /etc/piinetgw/piinetgw.sh, /sbin/piinetgw.sh (soft link, primary location)
 # Author: Shuvo Dutta
 # Required By (File(s)): NIL
 # External File(s): pppdialer.sh, inetfwall.sh
@@ -10,7 +10,7 @@
 # Baseline: NIL
 # This script will configure a raspberry pi running raspbian/minibian into a 4G/3G/EVDO/CDMA Internet Gateway for the network.
 
-SCRIPTNAME="mobinetgw.sh"
+SCRIPTNAME="piinetgw.sh"
 VERSION="v0.1"
 DATE="18-11-2015"
 
@@ -22,21 +22,21 @@ MODEM="/dev/ttyUSB0"
 LOCKPATH="/var/lock/"
 LOCKFILE="mobinetgw.lock"
 LOGPATH="/var/log/"
-LOGFILE="mobinetgw.log"
+LOGFILE="piinetgw.log"
 INETSTATFILE="inetstat.ppp0"
-CONFIGDIR="/etc/mobinetgw/"
-FWALLBACKUP="fwall.rules.bkp.mobinetgw"
+CONFIGDIR="/etc/piinetgw/"
+FWALLBACKUP="fwall.rules.bkp.piinetgw"
 RESOLVPATH="/etc/"
 RESOLVFILE="resolv.conf"
-RESOLVFILEBACKUP=$RESOLVFILE".bkp.mobinetgw"
+RESOLVFILEBACKUP=$RESOLVFILE".bkp.piinetgw"
 CRONPATH="/etc/"
 CRONTAB="crontab"
-ENBFILE="mobinetgw.cron.en"
+ENBFILE="piinetgw.cron.en"
 DIALER="./pppdialer.sh"
 FIREWALL="./inetfwall.sh"
 RESETFIREWALL="./inetfwallreset.sh"
-CRONFILE="mobinetgw.crontab"
-TMPFILE="mobinetgw.tmp"
+CRONFILE="piinetgw.crontab"
+TMPFILE="piinetgw.tmp"
 
 FUNCRTRNVAL="0"
 EXITSTATUS="255"
@@ -99,19 +99,19 @@ printlog()
 	
 }
 
-installmobinetgw()
+installpiinetgw()
 {
 	printf "Yet to be implemented. Please hang on...\n"
 	EXITSTATUS="127"
 }
 
-removemobinetgw()
+removepiinetgw()
 {
 	printf "Yet to be implemented. Please hang on...\n"
 	EXITSTATUS="127"
 }
 
-updatemobinetgw()
+updatepiinetgw()
 {
 	printf "Yet to be implemented. Please hang on...\n"
 	EXITSTATUS="127"
@@ -144,7 +144,7 @@ connectinet()
 		printf "Error!!! $MODEM is not present...\n"
 		rm $LOCKPATH$LOCKFILE
 		# disable connection watch dog if enabled
-		disablemobinetgw
+		disablepiinetgw
 		EXITSTATUS="3"
 	fi
 }
@@ -190,7 +190,7 @@ disconnectinet()
 		else
 			printf "Error!!! $LOCKPATH$LOCKFILE does not exsist...\n"
 		fi
-		disablemobinetgw
+		disablepiinetgw
 		EXITSTATUS="6"
 	fi
 }		
@@ -256,7 +256,7 @@ chkdns()
 	done
 }
 
-enablemobinetgw()
+enablepiinetgw()
 {
 	if [ -f $CONFIGDIR$ENBFILE ]
 	then
@@ -271,12 +271,12 @@ enablemobinetgw()
 	fi
 }
 
-disablemobinetgw()
+disablepiinetgw()
 {
 	if [ -f $CONFIGDIR$ENBFILE ]
 	then
 		printf "Disabling in cron... "
-		$CATBIN $CRONPATH$CRONTAB | $GREPBIN -i -v 'mobinetgw' > $CONFIGDIR$TMPFILE
+		$CATBIN $CRONPATH$CRONTAB | $GREPBIN -i -v 'piinetgw' > $CONFIGDIR$TMPFILE
 		rm $CRONPATH$CRONTAB
 		mv $CONFIGDIR$TMPFILE $CRONPATH$CRONTAB
 		rm $CONFIGDIR$ENBFILE
@@ -312,15 +312,15 @@ chkprvlg
 case $1
 in
 	install)
-		installmobinetgw
+		installpiinetgw
 		FUNCRTRNVAL="-1"
 		;;
 	update)
-		updatemobinetgw
+		updatepiinetgw
 		FUNCRTRNVAL="-1"
 		;;
 	remove)
-		removemobinetgw
+		removepiinetgw
 		FUNCRTRNVAL="-1"
 		;;
 	up)
@@ -391,11 +391,11 @@ in
 		FUNCRTRNVAL="-1"
 		;;
 	en)
-		enablemobinetgw
+		enablepiinetgw
 		FUNCRTRNVAL="-1"
 		;;
 	dis)
-		disablemobinetgw
+		disablepiinetgw
 		FUNCRTRNVAL="-1"
 		;;
 	*)
