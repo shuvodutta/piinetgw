@@ -1,0 +1,10 @@
+1. disable watchdog in case /dev/ttyUSB* is not present (piinetgw.sh)	(done)
+2. configurable local network interface (eth0, wlan0 etc.) (inetfwall.sh)
+3. wifi ap (hostapd, modified binary?)	(done)
+4. auto-start 'piinetgw' service
+5. file based & single instance based 'connection-checking' (piinetgw.sh)
+6. file based 'wlan0' configuration & inter-script communication
+7. clean up vpn scripts (route, firewall)
+8. web based status, management console
+9. ro/tmpfs for /var/log, /var/lock & rootfs(?)
+10. proper logging function
