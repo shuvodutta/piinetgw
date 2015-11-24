@@ -37,11 +37,14 @@ FIREWALL="./inetfwall.sh"
 RESETFIREWALL="./inetfwallreset.sh"
 CRONFILE="piinetgw.crontab"
 TMPFILE="piinetgw.tmp"
+OUT=" >> ./verbose.log"
+MESSAGE="0"
 
 FUNCRTRNVAL="0"
 EXITSTATUS="255"
 
 MODDNS="1"
+VERBOSE="0"
 
 RESOLVSTRING="nameserver "
 LOCALDNS1="127.0.0.1"
@@ -96,7 +99,8 @@ SLEEPBIN="sleep"
 
 printlog()
 {
-	
+	printf "printlog():\n"	
+	printf $MESSAGE$OUT	
 }
 
 installpiinetgw()
@@ -308,6 +312,14 @@ chklock()
 
 # main
 #printf "Mobile Internet Gateway Script for Raspberry Pi (on Raspbian/minibian). Version: $VERSION $DATE\n"
+if [ $VERBOSE -eq "1" ]
+then
+	OUT=">&1"
+else
+	OUT=">>/home/shuvo/verbose.log"
+fi
+MESSAGE="hello-world!\n"
+printlog
 chkprvlg
 case $1
 in
@@ -402,4 +414,5 @@ in
 		printf "Usage: $SCRIPTNAME install | remove | update | up | down | restart | chkconn | en | dis\n"
 		;;
 esac
+printlog
 exit $EXITSTATUS

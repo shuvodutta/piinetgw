@@ -8,3 +8,4 @@
 8. web based status, management console
 9. ro/tmpfs for /var/log, /var/lock & rootfs(?)
 10. proper logging function
+11. provision for option processing
